@@ -1,0 +1,29 @@
+name: Demo CI 2026
+
+# Declencheur : a chaque push sur la branche main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Etape 1 : Recuperer le code du repo
+    - name: Checkout du code
+      uses: actions/checkout@v4
+
+    # Etape 2 : Installer Node.js
+    - name: Installation Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # Etape 3 : Installer les dependances (proprement)
+    - name: Installation des paquets
+      run: npm ci
+
+    # Etape 4 : Lancer les tests
+    - name: Execution des tests
+      run: npm test
